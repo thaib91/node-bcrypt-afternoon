@@ -1,8 +1,11 @@
 require('dotenv').config();
 const ac = require('./controllers/authController');
+const tc = require('./controllers/treasureController');
+const auth = require('./middleware/authMiddleware');
 const express = require('express');
 const session = require('express-session');
 const massive = require('massive');
+
 // const bcrypt = require('bcryptjs')
 const { CONNECTION_PORT, SERVER_PORT, SECRET } = process.env;
 
@@ -20,6 +23,11 @@ app.use(session({
 app.post('/auth/register', ac.register);
 app.post('/auth/login', ac.login)
 app.get('/auth/logout', ac.logout)
+
+app.get('/api/treasure/dragon', tc.dragonTreasure)
+app.get('/api/treasure/user',auth.usersOnly, tc.getUserTreasure)
+
+
 
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`))
