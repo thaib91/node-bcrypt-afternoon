@@ -26,7 +26,8 @@ app.get('/auth/logout', ac.logout)
 
 app.get('/api/treasure/dragon', tc.dragonTreasure)
 app.get('/api/treasure/user',auth.usersOnly, tc.getUserTreasure)
-
+app.post('/api/treasure/user', auth.usersOnly, tc.addUserTreasure)
+app.get('api/treasure/all', auth.usersOnly, auth.adminsOnly, tc.getAllTreasure)
 
 
 
